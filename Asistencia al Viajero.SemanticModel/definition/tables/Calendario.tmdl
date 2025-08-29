@@ -1,0 +1,44 @@
+table Calendario
+	lineageTag: bdf9b248-b3c6-4308-8676-b84c8b76e2ba
+
+	column 'Fecha de Emisión'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 687aa479-0d97-4aaf-a66c-d4e95df96af3
+		summarizeBy: none
+		sourceColumn: Fecha de Emisión
+
+		variation Variación
+			isDefault
+			relationship: 9f822ea0-1d8c-413a-aa70-8a03fc3c8d63
+			defaultHierarchy: LocalDateTable_357d71fe-64d9-4867-ad8b-d7f7e334417c.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Calendario = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Juan\Desktop\Asistencia al Viajero.xlsx"), null, true),
+				    Ventas_Sheet = Origen{[Item="Ventas",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Ventas_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"ID Canal", Int64.Type}, {"Provincia", type text}, {"Ciudad", type text}, {"ID Empresa", Int64.Type}, {"ID Vendedor", Int64.Type}, {"Comprador", type text}, {"Tipo Titular", type text}, {"Voucher", Int64.Type}, {"Fecha de Emisión", type datetime}, {"Origen", type text}, {"ID Destino", Int64.Type}, {"ID Producto", Int64.Type}, {"Tipo de Producto", type text}, {"Inicio Viaje", type date}, {"Fin Viaje", type any}, {"ID Forma de Pago", Int64.Type}, {"Column17", type any}, {"Column18", type any}, {"Column19", type any}, {"Column20", type any}, {"Column21", type any}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Column21", "Column20", "Column18", "Column17", "Column19"}),
+				    #"Dividir columna por delimitador" = Table.SplitColumn(#"Columnas quitadas", "Comprador", Splitter.SplitTextByDelimiter(",", QuoteStyle.Csv), {"Comprador.1", "Comprador.2"}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Dividir columna por delimitador",{{"Comprador.1", type text}, {"Comprador.2", type text}}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado1",{{"Comprador.1", "Comprador_Apellido"}, {"Comprador.2", "Comprador_Nombre"}}),
+				    #"Texto recortado" = Table.TransformColumns(#"Columnas con nombre cambiado",{{"Comprador_Nombre", Text.Trim, type text}, {"Comprador_Apellido", Text.Trim, type text}}),
+				    #"Errores reemplazados" = Table.ReplaceErrorValues(#"Texto recortado", {{"Inicio Viaje", #date(2015, 9, 15)}}),
+				    #"Columnas quitadas1" = Table.RemoveColumns(#"Errores reemplazados",{"Tipo Titular", "Comprador_Nombre", "Voucher", "Origen", "ID Producto", "ID Destino", "Tipo de Producto", "Comprador_Apellido", "ID Empresa", "Ciudad", "Provincia", "ID Canal", "ID Vendedor", "ID Forma de Pago"}),
+				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Columnas quitadas1",{{"Fecha de Emisión", type date}, {"Fin Viaje", type date}}),
+				    #"Columnas quitadas2" = Table.RemoveColumns(#"Tipo cambiado2",{"Inicio Viaje", "Fin Viaje"}),
+				    #"Duplicados quitados" = Table.Distinct(#"Columnas quitadas2"),
+				    #"Filas filtradas" = Table.SelectRows(#"Duplicados quitados", each [Fecha de Emisión] <> null and [Fecha de Emisión] <> ""),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Filas filtradas", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+				in
+				    #"Filas en blanco eliminadas"
+
+	annotation PBI_ResultType = Table
+

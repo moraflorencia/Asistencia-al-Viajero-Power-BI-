@@ -1,0 +1,165 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 209.72540045766584,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 166.17391304347825
+          },
+          "nodeIndex": "Canal de Venta",
+          "nodeLineageTag": "dff8435d-d218-4c9a-86b0-edc08b9f6ed8",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 4,
+            "y": 428
+          },
+          "nodeIndex": "Destino",
+          "nodeLineageTag": "433e2b18-03f1-4987-b3cd-5bc3b98f8d95",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 664.82608695652175,
+            "y": 181.91304347826087
+          },
+          "nodeIndex": "Empresa",
+          "nodeLineageTag": "028cb692-589c-4572-b87b-b6ca8ae17976",
+          "size": {
+            "height": 172.254903563256,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Forma de Pago",
+          "nodeLineageTag": "e56d84ec-6efe-4916-8187-36d90ca0cca8",
+          "size": {
+            "height": 151,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 661.95652173913038,
+            "y": 421.91304347826082
+          },
+          "nodeIndex": "Producto",
+          "nodeLineageTag": "9b449b2f-a541-4705-bdd7-c16c4c103190",
+          "size": {
+            "height": 124,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 663.56521739130426,
+            "y": 0
+          },
+          "nodeIndex": "Vendedor",
+          "nodeLineageTag": "bcbdf47b-287d-4629-b7bd-177d2a781346",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 335,
+            "y": 0
+          },
+          "nodeIndex": "Ventas",
+          "nodeLineageTag": "1b904b9e-4ef2-4abc-945a-1932d10d60b9",
+          "size": {
+            "height": 514.13043478260863,
+            "width": 235.08695652173913
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 935.26086956521738,
+            "y": 246.6521739130435
+          },
+          "nodeIndex": "Voucher",
+          "nodeLineageTag": "c8af7293-3ba0-4302-a1d9-87e8769e7aa2",
+          "size": {
+            "height": 321.22221314154945,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 307.17391304347825
+          },
+          "nodeIndex": "Calendario",
+          "nodeLineageTag": "bdf9b248-b3c6-4308-8676-b84c8b76e2ba",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 928.39171297809764,
+            "y": 1.2942137953580044
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "23ae4975-7272-4288-baa2-f98852faeaec",
+          "size": {
+            "height": 206.36596927100351,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1219.2608695652175,
+            "y": 231.93719352729647
+          },
+          "nodeIndex": "Actualización",
+          "nodeLineageTag": "2a25d500-d8ca-4b49-94fa-816d44a8b068",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 80.1047463175123,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

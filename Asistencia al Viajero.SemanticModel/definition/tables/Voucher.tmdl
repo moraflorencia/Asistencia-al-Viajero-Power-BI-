@@ -1,0 +1,117 @@
+table Voucher
+	lineageTag: c8af7293-3ba0-4302-a1d9-87e8769e7aa2
+
+	column Voucher
+		dataType: int64
+		formatString: 0
+		lineageTag: 7756112b-03af-4cf2-856d-1ec614fc607a
+		summarizeBy: none
+		sourceColumn: Voucher
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Imp sin desc'
+		dataType: double
+		lineageTag: ca1597e5-cd4c-4e9c-bca3-9577607ba572
+		summarizeBy: sum
+		sourceColumn: Imp sin desc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '%Desc. Prom'
+		dataType: double
+		lineageTag: 1499dc60-d10e-4c41-aa7e-81dce706ebfd
+		summarizeBy: sum
+		sourceColumn: %Desc. Prom
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Importe Desc. Promo'
+		dataType: double
+		lineageTag: ab4204e2-d223-4cdd-a9e2-5e2cdf7c724e
+		summarizeBy: sum
+		sourceColumn: Importe Desc. Promo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Interés'
+		dataType: double
+		lineageTag: f207bb41-8095-4cf5-929f-28b2d4d57131
+		summarizeBy: sum
+		sourceColumn: % Interés
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Importe Interés'
+		dataType: double
+		lineageTag: f5e6423a-23c4-4334-b0bf-f39156680a1c
+		summarizeBy: sum
+		sourceColumn: Importe Interés
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Importe Abonado'
+		dataType: double
+		lineageTag: 2dfd45fb-d081-4d6e-9b3f-26b56c48c70e
+		summarizeBy: sum
+		sourceColumn: Importe Abonado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Comisión'
+		dataType: int64
+		formatString: 0
+		lineageTag: a242e54c-491f-4b48-a3b0-b9efddbfc594
+		summarizeBy: sum
+		sourceColumn: % Comisión
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Importe Comisión'
+		dataType: double
+		lineageTag: 2497eb97-8b9d-4ee7-ab42-6ce72e013379
+		summarizeBy: sum
+		sourceColumn: Importe Comisión
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Importe Neto empresa'
+		dataType: double
+		lineageTag: 3d93d4cb-e07d-4704-b4e9-6d334d77c92c
+		summarizeBy: sum
+		sourceColumn: Importe Neto empresa
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Voucher = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Juan\Desktop\Asistencia al Viajero.xlsx"), null, true),
+				    Voucher_Sheet = Origen{[Item="Voucher",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Voucher_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Voucher", Int64.Type}, {"Imp sin desc", type number}, {"%Desc. Prom", type number}, {"Importe Desc. Promo", type number}, {"% Interés", type number}, {"Importe Interés", type number}, {"Importe Abonado", type number}, {"% Comisión", Int64.Type}, {"Importe Comisión", type number}, {"Importe Neto empresa", type number}}),
+				    #"Duplicados quitados" = Table.Distinct(#"Tipo cambiado", {"Voucher"}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Duplicados quitados", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Filas ordenadas" = Table.Sort(#"Filas en blanco eliminadas",{{"Voucher", Order.Ascending}})
+				in
+				    #"Filas ordenadas"
+
+	annotation PBI_ResultType = Table
+

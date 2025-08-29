@@ -1,0 +1,59 @@
+table Medidas
+	lineageTag: 23ae4975-7272-4288-baa2-f98852faeaec
+
+	measure VentasTotalesPorDia = ```
+			CALCULATE(COUNTX('Ventas','Ventas'[ID Ventas]) , 'Ventas'[Fecha de Emisión]) 
+			```
+		formatString: 0
+		lineageTag: df353ed8-7b54-4ada-a49c-b6fa95a73455
+
+		changedProperty = IsHidden
+
+	measure VentasPorVendedor = ```
+			CALCULATE(COUNTX('Ventas','Ventas'[ID Ventas])) 
+			```
+		formatString: 0
+		lineageTag: 9b881621-0522-4964-b451-d71658dea4e6
+
+	measure CantidadDeComprasPorCliente = CALCULATE(COUNTX('Ventas','Ventas'[Comprador]))
+		formatString: 0
+		lineageTag: ec3b6e28-01fb-4b17-bddf-a9b578d8adc0
+
+	measure VentasXEmpresa = (COUNT('Ventas'[ID Empresa]))
+		lineageTag: 0e30191e-74b6-4924-988a-041201bea1f4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure VentasTotales = CALCULATE(COUNT('Ventas'[ID Ventas]))
+		formatString: 0
+		lineageTag: 4c8a8678-30ca-483d-8246-a931fb6cfcd4
+
+	measure 'VentasTotales máx. por Mes 2' =
+			
+			MAXX(
+				KEEPFILTERS(VALUES('Ventas'[Inicio Viaje].[Mes])),
+				CALCULATE([VentasTotales])
+			)
+		formatString: 0
+		lineageTag: be969e5b-cc01-4392-b2ad-219519064a48
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MaxPerCategory"
+				}
+
+		changedProperty = FormatString
+
+	partition Medidas = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Columna1", type text}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Columna1"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_ResultType = Table
+

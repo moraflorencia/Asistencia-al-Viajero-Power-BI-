@@ -1,0 +1,41 @@
+table 'Forma de Pago'
+	lineageTag: e56d84ec-6efe-4916-8187-36d90ca0cca8
+
+	column 'ID Forma de Pago'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8836c157-6594-4476-9d1e-a219b7c73e13
+		summarizeBy: none
+		sourceColumn: ID Forma de Pago
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Forma de Pago'
+		dataType: string
+		lineageTag: d9a2f295-10c6-471b-9b7c-44fa3dc0ffdb
+		summarizeBy: none
+		sourceColumn: Forma de Pago
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Canal de Pago'
+		dataType: string
+		lineageTag: 4d52a3cf-735b-4495-8c9c-46c0cb7515ec
+		summarizeBy: none
+		sourceColumn: Canal de Pago
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Forma de Pago' = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Juan\Desktop\Asistencia al Viajero.xlsx"), null, true),
+				    #"Forma de Pago_Sheet" = Origen{[Item="Forma de Pago",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(#"Forma de Pago_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"ID Forma de Pago", Int64.Type}, {"Forma de Pago", type text}, {"Canal de Pago", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

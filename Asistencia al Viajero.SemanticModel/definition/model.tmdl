@@ -1,0 +1,45 @@
+model Model
+	culture: es-AR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-AR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+/// Errores en las consultas cargadas en 12/3/2024 19:51:21.
+queryGroup 'Errores en las consultas: 12/3/2024 19:51:21'
+
+	annotation PBI_QueryGroupOrder = 0
+
+/// Errores en las consultas cargadas en 12/3/2024 19:56:36.
+queryGroup 'Errores en las consultas: 12/3/2024 19:56:36'
+
+	annotation PBI_QueryGroupOrder = 1
+
+annotation PBI_QueryOrder = ["Canal de Venta","Destino","Empresa","Forma de Pago","Producto","Vendedor","Ventas","Voucher","Errores en Ventas","Errores en Ventas (2)","Calendario","Medidas","Consulta1","Actualización"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.146.1133.0 (25.08)+c8010d55d1db76eda03c968b03481610e96a1ef7
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Canal de Venta'
+ref table DateTableTemplate_cdb3ae28-4b98-460d-b867-ff5e2ee8beed
+ref table Destino
+ref table Empresa
+ref table 'Forma de Pago'
+ref table Producto
+ref table Vendedor
+ref table Ventas
+ref table LocalDateTable_a1351ff0-7331-4679-8fee-2bc54ae27185
+ref table Voucher
+ref table LocalDateTable_3317fbee-415b-4c2d-b8a2-7030c4e07aee
+ref table Calendario
+ref table LocalDateTable_357d71fe-64d9-4867-ad8b-d7f7e334417c
+ref table Medidas
+ref table Actualización
+ref table LocalDateTable_76a33fcc-0b92-49f6-9c75-9f171bc346d7
+
+ref cultureInfo es-AR
+
