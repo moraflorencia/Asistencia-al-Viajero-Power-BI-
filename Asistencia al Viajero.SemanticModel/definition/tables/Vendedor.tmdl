@@ -1,0 +1,47 @@
+table Vendedor
+	lineageTag: bcbdf47b-287d-4629-b7bd-177d2a781346
+
+	column 'ID Vendedor'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b84635b-d5da-4661-a1e5-73d383a605ea
+		summarizeBy: none
+		sourceColumn: ID Vendedor
+
+		annotation SummarizationSetBy = User
+
+	column Apellido_Vendedor
+		dataType: string
+		lineageTag: 3a32b09d-5535-4680-9cac-7fec554e34c7
+		summarizeBy: none
+		sourceColumn: Apellido_Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre_Vendedor
+		dataType: string
+		lineageTag: d6609fbf-d99f-4be6-a3f4-9cbb02247481
+		summarizeBy: none
+		sourceColumn: Nombre_Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Vendedor = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Juan\Desktop\Asistencia al Viajero.xlsx"), null, true),
+				    Vendedor_Sheet = Origen{[Item="Vendedor",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Vendedor_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"ID Vendedor", Int64.Type}, {"Nombre y Apellido", type text}, {"Column3", type any}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Column3"}),
+				    #"Dividir columna por delimitador" = Table.SplitColumn(#"Columnas quitadas", "Nombre y Apellido", Splitter.SplitTextByDelimiter(",", QuoteStyle.Csv), {"Nombre y Apellido.1", "Nombre y Apellido.2"}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Dividir columna por delimitador",{{"Nombre y Apellido.1", type text}, {"Nombre y Apellido.2", type text}}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado1",{{"Nombre y Apellido.1", "Apellido_Vendedor"}, {"Nombre y Apellido.2", "Nombre_Vendedor"}}),
+				    #"Texto recortado" = Table.TransformColumns(#"Columnas con nombre cambiado",{{"Nombre_Vendedor", Text.Trim, type text}, {"Apellido_Vendedor", Text.Trim, type text}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Texto recortado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+				in
+				    #"Filas en blanco eliminadas"
+
+	annotation PBI_ResultType = Table
+

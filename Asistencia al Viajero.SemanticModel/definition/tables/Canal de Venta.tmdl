@@ -1,0 +1,37 @@
+table 'Canal de Venta'
+	lineageTag: dff8435d-d218-4c9a-86b0-edc08b9f6ed8
+
+	column 'ID Canal'
+		dataType: int64
+		formatString: 0
+		lineageTag: ea54eee2-1f8f-4141-9641-0a2222a67eae
+		summarizeBy: none
+		sourceColumn: ID Canal
+
+		annotation SummarizationSetBy = User
+
+	column 'Tipo de Canal'
+		dataType: string
+		lineageTag: 99a049f4-7aae-482b-8019-daebd66f5d99
+		summarizeBy: none
+		sourceColumn: Tipo de Canal
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Canal de Venta' = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Juan\Desktop\Asistencia al Viajero.xlsx"), null, true),
+				    #"Canal de Venta_Sheet" = Origen{[Item="Canal de Venta",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(#"Canal de Venta_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"ID Canal", Int64.Type}, {"Tipo de Canal", type text}}),
+				    #"Duplicados quitados" = Table.Distinct(#"Tipo cambiado", {"ID Canal"}),
+				    #"Filas inferiores quitadas" = Table.RemoveLastN(#"Duplicados quitados",1)
+				in
+				    #"Filas inferiores quitadas"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

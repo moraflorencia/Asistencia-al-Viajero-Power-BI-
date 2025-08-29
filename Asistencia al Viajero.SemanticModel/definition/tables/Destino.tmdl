@@ -1,0 +1,38 @@
+table Destino
+	lineageTag: 433e2b18-03f1-4987-b3cd-5bc3b98f8d95
+
+	column 'ID Destino'
+		dataType: int64
+		formatString: 0
+		lineageTag: ca629d18-a12f-46c5-8ddd-2723e9264323
+		summarizeBy: none
+		sourceColumn: ID Destino
+
+		annotation SummarizationSetBy = User
+
+	column 'Región Destino'
+		dataType: string
+		lineageTag: 97424d27-0404-4b99-9f65-e9d98984dcbf
+		summarizeBy: none
+		sourceColumn: Región Destino
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Destino = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Juan\Desktop\Asistencia al Viajero.xlsx"), null, true),
+				    Destino_Sheet = Origen{[Item="Destino",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Destino_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"ID Destino", Int64.Type}, {"Región Destino", type text}, {"Column3", type any}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Column3"}),
+				    #"Duplicados quitados" = Table.Distinct(#"Columnas quitadas", {"ID Destino"}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Duplicados quitados", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+				in
+				    #"Filas en blanco eliminadas"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Exception
+

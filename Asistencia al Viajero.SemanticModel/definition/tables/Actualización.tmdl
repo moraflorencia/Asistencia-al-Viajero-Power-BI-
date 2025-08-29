@@ -1,0 +1,34 @@
+table Actualización
+	lineageTag: 2a25d500-d8ca-4b49-94fa-816d44a8b068
+
+	column 'Fecha Hora'
+		dataType: dateTime
+		formatString: d mmm yyyy hh:nn
+		lineageTag: c8850ab0-45db-4718-9020-5b6138f97658
+		summarizeBy: none
+		sourceColumn: Fecha Hora
+
+		variation Variación
+			isDefault
+			relationship: 2ddd1952-68fe-4518-a6d7-878617775f08
+			defaultHierarchy: LocalDateTable_76a33fcc-0b92-49f6-9c75-9f171bc346d7.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition Actualización = m
+		mode: import
+		source =
+				let
+				    Origen = Consulta1(),
+				    #"Convertida en tabla" = #table(1, {{Origen}}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Convertida en tabla",{{"Column1", type datetime}}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado",{{"Column1", "Fecha Hora"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
