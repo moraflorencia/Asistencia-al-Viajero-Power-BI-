@@ -1,0 +1,209 @@
+table Ventas
+	lineageTag: 1b904b9e-4ef2-4abc-945a-1932d10d60b9
+
+	column 'ID Canal'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d624ecd-1efc-4507-b669-a350fb1bf4bf
+		summarizeBy: none
+		sourceColumn: ID Canal
+
+		annotation SummarizationSetBy = User
+
+	column Provincia
+		dataType: string
+		lineageTag: bc75a722-ac7b-49a8-a92f-d23bebe115b3
+		summarizeBy: none
+		sourceColumn: Provincia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciudad
+		dataType: string
+		lineageTag: f14a069b-0c4d-4329-b496-a8dfe5ff7efe
+		summarizeBy: none
+		sourceColumn: Ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Empresa'
+		dataType: int64
+		formatString: 0
+		lineageTag: 935840d6-421d-4498-bb6b-041e3576ae5c
+		summarizeBy: none
+		sourceColumn: ID Empresa
+
+		annotation SummarizationSetBy = User
+
+	column 'ID Vendedor'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1b24e314-1815-469a-90af-f581b7928f22
+		summarizeBy: none
+		sourceColumn: ID Vendedor
+
+		annotation SummarizationSetBy = User
+
+	column 'Tipo Titular'
+		dataType: string
+		lineageTag: 39a41143-6f95-40dd-aa39-b431eb660eea
+		summarizeBy: none
+		sourceColumn: Tipo Titular
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voucher
+		dataType: int64
+		formatString: 0
+		lineageTag: e4f7619a-e336-49c1-834c-b344ad5592c9
+		summarizeBy: none
+		sourceColumn: Voucher
+
+		annotation SummarizationSetBy = User
+
+	column 'Fecha de Emisión'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0b682e49-e724-4eae-b1a6-a9b6d05ccf4c
+		summarizeBy: none
+		sourceColumn: Fecha de Emisión
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Origen
+		dataType: string
+		lineageTag: 8845bf49-bcd9-4551-8b2b-f3eb75ad98ad
+		summarizeBy: none
+		sourceColumn: Origen
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Destino'
+		dataType: int64
+		formatString: 0
+		lineageTag: e56ecc93-c677-4a4c-9c58-f67d880bc938
+		summarizeBy: none
+		sourceColumn: ID Destino
+
+		annotation SummarizationSetBy = User
+
+	column 'ID Producto'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2dafea92-29f7-42a1-9f33-99421450456c
+		summarizeBy: none
+		sourceColumn: ID Producto
+
+		annotation SummarizationSetBy = User
+
+	column 'Tipo de Producto'
+		dataType: string
+		lineageTag: d8d97e78-c2cf-4c42-af77-60ca4157ef43
+		summarizeBy: none
+		sourceColumn: Tipo de Producto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Inicio Viaje'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8808b784-5f50-4b0f-85b4-c8b7dadd5c6e
+		summarizeBy: none
+		sourceColumn: Inicio Viaje
+
+		variation Variación
+			isDefault
+			relationship: 5b0ed96f-8a44-4098-8fb1-4ab27fcb6b15
+			defaultHierarchy: LocalDateTable_a1351ff0-7331-4679-8fee-2bc54ae27185.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Fin Viaje'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5518dc28-1739-483f-87e4-f41251ce3241
+		summarizeBy: none
+		sourceColumn: Fin Viaje
+
+		variation Variación
+			isDefault
+			relationship: 6186ea5e-bb0a-4c58-a3ea-5fb09a498fd5
+			defaultHierarchy: LocalDateTable_3317fbee-415b-4c2d-b8a2-7030c4e07aee.'Jerarquía de fechas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Forma de Pago'
+		dataType: int64
+		formatString: 0
+		lineageTag: 47aa2e94-898b-4498-8d14-4ef4595f5701
+		summarizeBy: none
+		sourceColumn: ID Forma de Pago
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Ventas'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a751fbe-2999-45f5-a6cb-a2bb429190bd
+		summarizeBy: none
+		sourceColumn: ID Ventas
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = User
+
+	column Comprador
+		dataType: string
+		lineageTag: dde42383-263c-473d-90b4-e25ad1575fb1
+		summarizeBy: none
+		sourceColumn: Comprador
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiasDeViaje = Ventas[Fin Viaje].[Date] - Ventas[Inicio Viaje].[Date]
+		dataType: int64
+		formatString: 0
+		lineageTag: 671646f5-91cb-48f5-a733-2305425a0365
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ventas = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Juan\Desktop\Asistencia al Viajero.xlsx"), null, true),
+				    Ventas_Sheet = Origen{[Item="Ventas",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Ventas_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"ID Canal", Int64.Type}, {"Provincia", type text}, {"Ciudad", type text}, {"ID Empresa", Int64.Type}, {"ID Vendedor", Int64.Type}, {"Comprador", type text}, {"Tipo Titular", type text}, {"Voucher", Int64.Type}, {"Fecha de Emisión", type datetime}, {"Origen", type text}, {"ID Destino", Int64.Type}, {"ID Producto", Int64.Type}, {"Tipo de Producto", type text}, {"Inicio Viaje", type date}, {"Fin Viaje", type any}, {"ID Forma de Pago", Int64.Type}, {"Column17", type any}, {"Column18", type any}, {"Column19", type any}, {"Column20", type any}, {"Column21", type any}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Column21", "Column20", "Column18", "Column17", "Column19"}),
+				    #"Dividir columna por delimitador" = Table.SplitColumn(#"Columnas quitadas", "Comprador", Splitter.SplitTextByDelimiter(",", QuoteStyle.Csv), {"Comprador.1", "Comprador.2"}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Dividir columna por delimitador",{{"Comprador.1", type text}, {"Comprador.2", type text}}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado1",{{"Comprador.1", "Comprador_Apellido"}, {"Comprador.2", "Comprador_Nombre"}}),
+				    #"Texto recortado" = Table.TransformColumns(#"Columnas con nombre cambiado",{{"Comprador_Nombre", Text.Trim, type text}, {"Comprador_Apellido", Text.Trim, type text}}),
+				    #"Errores reemplazados" = Table.ReplaceErrorValues(#"Texto recortado", {{"Inicio Viaje", #date(2015, 9, 15)}}),
+				    #"Filas ordenadas" = Table.Sort(#"Errores reemplazados",{{"Fecha de Emisión", Order.Ascending}}),
+				    #"Índice agregado" = Table.AddIndexColumn(#"Filas ordenadas", "Índice", 1, 1, Int64.Type),
+				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Índice agregado",{{"Índice", "ID Ventas"}}),
+				    #"Columnas reordenadas" = Table.ReorderColumns(#"Columnas con nombre cambiado1",{"ID Ventas", "ID Canal", "Provincia", "Ciudad", "ID Empresa", "ID Vendedor", "Comprador_Apellido", "Comprador_Nombre", "Tipo Titular", "Voucher", "Fecha de Emisión", "Origen", "ID Destino", "ID Producto", "Tipo de Producto", "Inicio Viaje", "Fin Viaje", "ID Forma de Pago"}),
+				    #"Filas ordenadas1" = Table.Sort(#"Columnas reordenadas",{{"Fecha de Emisión", Order.Ascending}}),
+				    #"Duplicados quitados" = Table.Distinct(#"Filas ordenadas1", {"Voucher"}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Duplicados quitados", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Errores quitados" = Table.RemoveRowsWithErrors(#"Filas en blanco eliminadas", {"ID Ventas"}),
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(#"Errores quitados",{{"Comprador_Apellido", Text.Proper, type text}, {"Comprador_Nombre", Text.Proper, type text}}),
+				    #"Columnas combinadas" = Table.CombineColumns(#"Poner En Mayúsculas Cada Palabra",{"Comprador_Apellido", "Comprador_Nombre"},Combiner.CombineTextByDelimiter(", ", QuoteStyle.None),"Comprador")
+				in
+				    #"Columnas combinadas"
+
+	annotation PBI_ResultType = Table
+

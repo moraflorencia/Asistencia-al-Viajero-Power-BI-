@@ -1,0 +1,55 @@
+relationship 5b0ed96f-8a44-4098-8fb1-4ab27fcb6b15
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Ventas.'Inicio Viaje'
+	toColumn: LocalDateTable_a1351ff0-7331-4679-8fee-2bc54ae27185.Date
+
+relationship 92597f0e-4a37-4d52-837c-41c1463210b6
+	crossFilteringBehavior: bothDirections
+	fromColumn: Ventas.'ID Forma de Pago'
+	toColumn: 'Forma de Pago'.'ID Forma de Pago'
+
+relationship 6186ea5e-bb0a-4c58-a3ea-5fb09a498fd5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Ventas.'Fin Viaje'
+	toColumn: LocalDateTable_3317fbee-415b-4c2d-b8a2-7030c4e07aee.Date
+
+relationship 9f822ea0-1d8c-413a-aa70-8a03fc3c8d63
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.'Fecha de Emisión'
+	toColumn: LocalDateTable_357d71fe-64d9-4867-ad8b-d7f7e334417c.Date
+
+relationship 00b3bebc-1b93-4650-8280-2fd5db0db7d7
+	fromColumn: Ventas.'Fecha de Emisión'
+	toColumn: Calendario.'Fecha de Emisión'
+
+relationship 7c511465-10c5-44e0-b079-555d5fb2729f
+	fromColumn: Ventas.'ID Canal'
+	toColumn: 'Canal de Venta'.'ID Canal'
+
+relationship 09561449-c3d4-4bf0-bd48-f8fc53369e9b
+	fromColumn: Ventas.'ID Destino'
+	toColumn: Destino.'ID Destino'
+
+relationship 72e5c2b7-7783-4821-ad10-bc9414a1a397
+	fromColumn: Ventas.'ID Empresa'
+	toColumn: Empresa.'ID Empresa'
+
+relationship d147b1b2-343a-46b5-b14d-1da8a2ec63bd
+	fromColumn: Ventas.'ID Producto'
+	toColumn: Producto.'ID Producto'
+
+relationship 1668ef1c-c26c-4926-9f14-55111d4e043a
+	fromColumn: Ventas.'ID Vendedor'
+	toColumn: Vendedor.'ID Vendedor'
+
+relationship 3a2241d5-0487-4d9d-9f3b-7339a0484e5e
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Voucher.Voucher
+	toColumn: Ventas.Voucher
+
+relationship 2ddd1952-68fe-4518-a6d7-878617775f08
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Actualización.'Fecha Hora'
+	toColumn: LocalDateTable_76a33fcc-0b92-49f6-9c75-9f171bc346d7.Date
+

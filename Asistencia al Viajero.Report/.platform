@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Asistencia al Viajero"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "cd5a841e-a0e7-40df-a552-19a0e8394c24"
+  }
+}
