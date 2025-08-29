@@ -19,7 +19,7 @@ El trabajo incluyó:
 ## 🎥 Vistas e Interacciones del Dashboard
 
 ### 🔹 Vista General
-![alt text](image.png) 
+<a href='https://postimg.cc/HVtBFJvQ' target='_blank'><img src='https://i.postimg.cc/HVtBFJvQ/General.gif' border='0' alt='General'/></a>
 
 ### 🔹 Vista Ventas
 <a href='https://postimg.cc/bDDqBfzt' target='_blank'><img src='https://i.postimg.cc/bDDqBfzt/Ventas.gif' border='0' alt='Ventas'/></a>
