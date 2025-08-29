@@ -1,6 +1,6 @@
 # 🌍 Power BI - Asistencia al Viajero (CoderHouse)
 
-Proyecto integral de **análisis de datos** en el que desarrollé un tablero interactivo en **Power BI** a partir de un dataset propio titulado *"Asistencia al Viajero"*.  
+Proyecto integral de **análisis de datos** en el que desarrollé un tablero interactivo en **Power BI** a partir de un dataset titulado *"Asistencia al Viajero"*.  
 
 El trabajo incluyó:  
 - Transformación de una base de datos compleja en Excel.  
@@ -19,36 +19,23 @@ El trabajo incluyó:
 ## 🎥 Vistas e Interacciones del Dashboard
 
 ### 🔹 Vista General
-![Vista General](./assets/vista-general.gif)
+<a href='https://postimg.cc/HVtBFJvQ' target='_blank'><img src='https://i.postimg.cc/HVtBFJvQ/General.gif' border='0' alt='General'/></a>
 
-### 🔹 Análisis de Tendencias
+### 🔹 Ventas
 ![Tendencias](./assets/tendencias.gif)
 
-### 🔹 Segmentación por Clientes/Regiones
-![Segmentación](./assets/segmentacion.gif)
+### 🔹 Viajes
+<a href='https://postimg.cc/YjRdsGsQ' target='_blank'><img src='https://i.postimg.cc/YjRdsGsQ/Viajes.gif' border='0' alt='Viajes'/></a>
 
-### 🔹 KPIs Estratégicos
-![KPIs](./assets/kpis.gif)
-
+### 🔹 Vendedores
+<a href='https://postimg.cc/CBVcWj0s' target='_blank'><img src='https://i.postimg.cc/CBVcWj0s/Vendedores.png' border='0' alt='Vendedores'/></a>
 ---
 
 ## 📂 Contenido del Repositorio
-- `AsistenciaViajero.pbix` → Archivo original de Power BI.  
-- Carpeta `assets/` → GIFs e imágenes de las visualizaciones interactivas.  
-
+- `AsistenciaViajero.pbix` → Archivo original de Power BI. 
 ---
 
 ## 🚀 Cómo usarlo
 1. Descargar el archivo `.pbix` desde este repositorio.  
 2. Abrirlo con **Power BI Desktop** (versión más reciente recomendada).  
 3. Explorar las visualizaciones e interactuar con los filtros.  
-
----
-
-## 👩‍💻 Autor
-**Florencia Milagros Mora**  
-📍 Buenos Aires, Argentina  
-📧 [mora.florencia.m@gmail.com](mailto:mora.florencia.m@gmail.com)  
-🔗 [LinkedIn](https://www.linkedin.com/in/florm01)  
-
----
