@@ -19,15 +19,15 @@ El trabajo incluyó:
 ## 🎥 Vistas e Interacciones del Dashboard
 
 ### 🔹 Vista General
-<a href='https://postimg.cc/HVtBFJvQ' target='_blank'><img src='https://i.postimg.cc/HVtBFJvQ/General.gif' border='0' alt='General'/></a>
+![alt text](image.png) 
 
-### 🔹 Ventas
+### 🔹 Vista Ventas
 <a href='https://postimg.cc/bDDqBfzt' target='_blank'><img src='https://i.postimg.cc/bDDqBfzt/Ventas.gif' border='0' alt='Ventas'/></a>
 
-### 🔹 Viajes
+### 🔹 Vista Viajes
 <a href='https://postimg.cc/YjRdsGsQ' target='_blank'><img src='https://i.postimg.cc/YjRdsGsQ/Viajes.gif' border='0' alt='Viajes'/></a>
 
-### 🔹 Vendedores
+### 🔹 Vista Vendedores
 <a href='https://postimg.cc/CBVcWj0s' target='_blank'><img src='https://i.postimg.cc/CBVcWj0s/Vendedores.png' border='0' alt='Vendedores'/></a>
 ---
 
