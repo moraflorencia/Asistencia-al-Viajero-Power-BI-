@@ -22,7 +22,7 @@ El trabajo incluyó:
 <a href='https://postimg.cc/HVtBFJvQ' target='_blank'><img src='https://i.postimg.cc/HVtBFJvQ/General.gif' border='0' alt='General'/></a>
 
 ### 🔹 Ventas
-![Tendencias](./assets/tendencias.gif)
+<a href='https://postimg.cc/bDDqBfzt' target='_blank'><img src='https://i.postimg.cc/bDDqBfzt/Ventas.gif' border='0' alt='Ventas'/></a>
 
 ### 🔹 Viajes
 <a href='https://postimg.cc/YjRdsGsQ' target='_blank'><img src='https://i.postimg.cc/YjRdsGsQ/Viajes.gif' border='0' alt='Viajes'/></a>
